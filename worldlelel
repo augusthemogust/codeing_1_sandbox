@@ -1,0 +1,82 @@
+# Color constants
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+BLUE = '\033[34m'
+GREY = '\033[90m'
+RESET = '\033[0m'
+
+# wordle
+application_data = {
+    'possible_words': [],
+    'player_guesses': [],
+    'secret_word': '',
+    'guesses_remaining': 6,
+    'game_status': [False, False, False, False, False],
+}
+# stuff we gotta do:
+# get_secret_word
+# get_player_guess
+# check_player_guess
+# display_board
+
+def display_guess(guess):
+    # loops through letters in each guess and applies correct color to each
+    for letter in guess:
+        if letter in application_data['secret_word'] and letter == application_data['secret_word'][guess.index(letter)]:
+            letter = letter.upper()
+            print(f"{GREEN}{letter}{RESET}", end=' ')
+        elif letter in application_data['secret_word']:
+            letter = letter.upper()
+            print(f'{YELLOW}{letter}{RESET}', end=' ')
+        else:
+            letter = letter.upper()
+            print(f"{GREY}{letter}{RESET}", end=' ')
+    # idrk what the game status is but this changes it all to true POGGIES
+    if guess == application_data['secret_word']:
+        application_data['game_status'] = [True, True, True, True, True]
+    # adds space in between each letter and then adds a new line at the end of the guess
+    print()
+
+def display_board():
+    # prints the current guesses and the number of guesses remaining
+    print("current guesses: ")
+    for guess in application_data['player_guesses']:
+        display_guess(guess)
+    print(f"Guesses remaining: {application_data['guesses_remaining']}")
+    print(f"Game status: {application_data['game_status']}")
+
+
+# my function doesnt really do return because its just printing the garbage loo
+
+
+# Makennah's code
+
+# This function performs the task of getting a random, secret word from a list of possible words. This is the word that the user will guess.
+# This function takes english_dictionary_list(str) as an argument from the list of words in the application_data dictionary.
+# ---> application_data["possible_words"].
+# This function returns secret_word(str), a randomly selected word from the list.
+#def get_secret_word(english_dictionary_list):
+#    import random
+#    secret_word = random.choice(english_dictionary_list)
+#    application_data["secret_word"] = secret_word
+#    return(secret_word)
+
+# Isa's Code
+
+# This function performs checking if the player guessed the secret word based on their input.
+# This function takes a string (a user guesses a word) as an argument.
+# This function returns true or false, which is a boolean type of data.
+# def check_player_guess(player_guess):
+# if application_data['guesses_remaining'] > 0:
+# if player_guess == application_data['secret_word']:
+# return True
+# else:
+# application_data['guesses_remaining'] -= 1
+# return False
+# else:
+# return False
+# Test
+# application_data['secret_word'] = "brain"
+# print(check_player_guess("brain")) # return True
+# print(check_player_guess("crane")) # return False
